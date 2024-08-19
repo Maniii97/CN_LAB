@@ -7,7 +7,7 @@
 #include <arpa/inet.h>
 #include <netinet/in.h>
 
-#define PORT     8080
+#define PORT 8080
 #define MAXLINE 1024
 #define IPV4 AF_INET
 #define UDP SOCK_DGRAM
@@ -54,7 +54,11 @@ int main(int argc, char* argv[]) {
 
         n = recvfrom(sockfd, (char *)buffer, MAXLINE, MSG_WAITALL, (struct sockaddr *) &servaddr, &len);
         buffer[n] = '\0';
-        printf("Server: %s\n", buffer);
+        char server_ip[INET_ADDRSTRLEN];
+        int server_port = ntohs(servaddr.sin_port);
+        inet_ntop(IPV4, &(servaddr.sin_addr), server_ip, INET_ADDRSTRLEN);
+        printf("Server IP Address:  %s, Server Port : %d\n", server_ip,server_port);
+        printf("Server message: %s\n", buffer);
 
         if (strcmp(buffer, "exit") == 0) {
             printf("Server has terminated the chat.\n");
