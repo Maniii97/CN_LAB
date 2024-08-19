@@ -15,7 +15,7 @@
 
 // socket() -> bind() -> recvfrom() -> sendto() -> close()
 
-int main(int argc, char* argv[]){
+int main(){
     struct sockaddr_in servaddr, cliaddr;
     char buffer[MAXLINE];
     char *msg;
@@ -45,7 +45,7 @@ int main(int argc, char* argv[]){
         buffer[n] = '\0';
         printf("Client: %s\n", buffer);
 
-        if (strcmp(buffer, "bye") == 0) {
+        if (strcmp(buffer, "exit") == 0) {
             printf("Client has terminated the chat.\n");
             break;
         }
@@ -54,7 +54,7 @@ int main(int argc, char* argv[]){
         scanf("%[^\n]%*c", buffer);
         buffer[strcspn(buffer, "\n")] = '\0'; // Remove newline character
 
-        if (strcmp(buffer, "bye") == 0) {
+        if (strcmp(buffer, "exit") == 0) {
             sendto(sockfd, (const char *)buffer, strlen(buffer), MSG_CONFIRM, (const struct sockaddr *)&cliaddr, len);
             printf("Server has terminated the chat.\n");
             break;

@@ -10,25 +10,29 @@
 
 #define PORT	 8080
 #define MAXLINE 1024
+#define IPV4 AF_INET
+#define UDP SOCK_DGRAM
 
 // socket() -> sendto() -> recvfrom() -> close()
 
 int main(int argc, char *argv[]){
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <message_to_send>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
     struct sockaddr_in servaddr, cliaddr;
     char buffer[MAXLINE];
-    char *msg = *(argv+1) ;
-    int sockfd = socket(AF_INET, SOCK_DGRAM, 0);
+    char *msg = *(argv+1);
+    int sockfd = socket(IPV4, UDP, 0);
     if(sockfd < 0){
         perror("socket creation failed");
         exit(EXIT_FAILURE);
     }
-        printf("printn %d",AF_INET);
-
     memset(&servaddr, 0, sizeof(servaddr));
     memset(&cliaddr, 0, sizeof(cliaddr));
 
     // fill server information
-    servaddr.sin_family = AF_INET;      // protocol
+    servaddr.sin_family = IPV4;    // protocol
     servaddr.sin_port = htons(PORT);     // port number
     servaddr.sin_addr.s_addr = INADDR_ANY; // Ip addr
 

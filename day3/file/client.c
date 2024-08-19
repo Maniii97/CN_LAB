@@ -13,6 +13,10 @@
 #define UDP SOCK_DGRAM
 
 int main(int argc, char* argv[]) {
+    if (argc != 2) {
+        fprintf(stderr, "Usage: %s <file_to_send>\n", argv[0]);
+        exit(EXIT_FAILURE);
+    }
     struct sockaddr_in servaddr;
     char buffer[MAXLINE];
     int sockfd = socket(IPV4, UDP, 0);
