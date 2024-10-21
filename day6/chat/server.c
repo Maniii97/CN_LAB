@@ -23,6 +23,11 @@ void handle_client(int connfd) {
         buffer[n] = '\0';
         printf("Client: %s\n", buffer);
 
+        if (strncmp(buffer, "logout", 6) == 0) {
+            printf("Client requested logout.\n");
+            break;
+        }
+
         printf("Server: ");
         bzero(buffer, sizeof(buffer));
         n = 0;
@@ -67,7 +72,6 @@ int main() {
             continue;
         }
 
-        // Log client information
         char client_ip[INET_ADDRSTRLEN];
         inet_ntop(AF_INET, &cliaddr.sin_addr, client_ip, INET_ADDRSTRLEN);
         printf("Accepted connection from %s:%d\n", client_ip, ntohs(cliaddr.sin_port));

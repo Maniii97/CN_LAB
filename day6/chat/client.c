@@ -40,7 +40,7 @@ int main() {
         bzero(buffer, sizeof(buffer));
         n = read(sockfd, buffer, sizeof(buffer));
         if (n <= 0) {
-            printf("Server disconnected.\n");
+            printf("Disconnected.\n");
             break;
         }
         buffer[n] = '\0';
