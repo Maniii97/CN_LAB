@@ -3,7 +3,9 @@ Write a C program to swap the content of 2 variables entered
  through command line using function and pointer.
  */
 #include <stdio.h>
-int swap(int *n1, int *n2) {
+#include <stdlib.h>
+
+void swap(int *n1, int *n2) {
     *n1 = *n1 ^ *n2;
     *n2 = *n1 ^ *n2;
     *n1 = *n1 ^ *n2;

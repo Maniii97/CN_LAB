@@ -12,7 +12,8 @@
 #define TCP SOCK_STREAM
 
 int main() {
-    int sockfd, connfd, len;
+    int sockfd, connfd;
+    socklen_t len;
     struct sockaddr_in serv, cli;
     sockfd = socket(IPV4, TCP, 0);
 
